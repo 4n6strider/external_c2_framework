@@ -22,7 +22,7 @@ C2_ARCH = "x86"
 IDLE_TIME = 5
 
 ENCODER_MODULE = "encoder_b64url"
-TRANSPORT_MODULE = "transport_gmail"
+TRANSPORT_MODULE = "transport_dbox"
 
 ###########################################
 # DEBUG: </END GHETTO CONFIG>

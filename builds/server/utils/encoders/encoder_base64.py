@@ -6,3 +6,4 @@ def encode(data):
 
 def decode(data):
 	return base64.b64decode(data)
+

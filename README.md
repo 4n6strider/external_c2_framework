@@ -3,6 +3,23 @@ Python framework for usage with Cobalt Strike's External C2 specification as des
 
 The primary design goal is to be a very modular implementation of the external c2 spec that provides enough abstraction to easily implement C2 channels for Cobalt Strike. Ideally, all a user would have to do is create a `transport` module, an `encoder` module, and populate a configuration file to implement a new channel.
 
+
+## Dropbox Transport Configuration
+
+You'll need to do several configuration changes before getting up and running. You'll need to:
+
+1. Create a Dropbox Account if you haven't already (https://www.dropbox.com/)
+2. Generate an Access Token for your Dropbox account (https://www.iperiusbackup.net/en/create-dropbox-app-get-authentication-token/)
+3. In `builds/client/dbox/dbox_client.py`, change `token` to the one generated in step 2.
+4. In `builds/server/utils/transports/transport_dbox.py` make the same changes as you did in 3.
+5. Compile your DLL by: `cd builds/client/dbox && ./compile_dll.sh`
+6. Start your Cobalt Strike Team server and connect with the Cobalt Strike Client
+7. Load the `start_externalc2.cna` script from your CS client.
+8. Copy this repo to your team server, then execute the server by `cd builds/server/ && ./dbox_server.py`
+9. Distribute your executable from 6 to the host and execute. You should see a connection back from the team server.
+
+Link to video demo: https://www.youtube.com/watch?v=nTRHSh_uCcA
+
 ## Architecture
 This project consists of three main parts:
  - Builder (not yet implemented)
@@ -128,3 +145,4 @@ Yes please! Submit a pull request and I would be happy to review.
 * Similar abstraction and modularity will be implemented in the client component as well, to support different methods of process injection for the beacon payload and other features on the roadmap.
 
 * Currently, this is missing the builder functionality, which is planned to dynamically build client and server deployments, but it is on the roadmap.
+
